@@ -1,0 +1,33 @@
+body {
+  font-family: 'Libre Baskerville', serif;
+}
+
+h1 {
+  display: inline;
+  text-align: center;
+}
+
+main {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: orange;
+}
+
+.deck {
+  height: 30vh;
+  width:20vw;
+  background-color: blue
+}
+
+.number-wins {
+  display: inline-flex;
+}
+
+player-2-win-num {
+
+}
+
+player-1-win-num {
+
+}
