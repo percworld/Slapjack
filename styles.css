@@ -1,33 +1,46 @@
 body {
   font-family: 'Libre Baskerville', serif;
-}
-
-h1 {
-  display: inline;
-  text-align: center;
+  margin: 0px;
 }
 
 main {
+  background-color: orange;
+  height: 100vh;
+  width: inherit;
+}
+
+h1 {
+  display: inline-flex;
+  justify-content: center;
+  margin-top: 4vh;
+  width: 100%;
+
+}
+
+.container {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: orange;
+  height: 60%;
+  width: 100%;
 }
 
+
 .deck {
-  height: 30vh;
-  width:20vw;
+  height: 250px;;
+  width: 163px;
   background-color: blue
 }
 
 .number-wins {
-  display: inline-flex;
+  display: flex;
+  justify-content: space-between;
 }
 
-player-2-win-num {
-
+.player-1-win-num {
+  margin-left: 13vw;
 }
 
-player-1-win-num {
-
+.player-2-win-num {
+  margin-right: 13vw;
 }
