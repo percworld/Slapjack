@@ -28,17 +28,5 @@ window.addEventListener("keydown", function(event) {
 }, true);
 
 // Event handling
-function player1Slap() {
-  console.log('player1Slap');
-}
-function player2Slap() {
-  console.log('player2Slap');
-}
-function player1Deal() {
-  console.log('player1Deal');
-}
-function player2Deal() {
-  console.log('player2Deal');
-}
 
 //Code End
