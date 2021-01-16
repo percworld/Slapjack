@@ -7,7 +7,7 @@ class Game {
                     {order: '1', img: "green-01.png"}, {order: '2', img: "green-02.png"}, {order: '3', img: "green-03.png"}, {order: '4', img: "green-04.png"}, {order: '5', img: "green-05.png"}, {order: '6', img: "green-06.png"}, {order: '7', img: "green-07.png"}, {order: '8', img: "green-08.png"}, {order: '9', img: "green-09.png"}, {order: '10', img: "green-010.png"}, {order: 'J', img: "green-jack.png"}, {order: 'Q', img: "green-queen.png"}, {order: 'K', img: "green-king.png"},
                     {order: '1', img: "red-01.png"}, {order: '2', img: "red-02.png"}, {order: '3', img: "red-03.png"}, {order: '4', img: "red-04.png"}, {order: '5', img: "red-05.png"}, {order: '6', img: "red-06.png"}, {order: '7', img: "red-07.png"}, {order: '8', img: "red-08.png"}, {order: '9', img: "red-09.png"}, {order: '10', img: "red-010.png"}, {order: 'J', img: "red-jack.png"}, {order: 'Q', img: "red-queen.png"}, {order: 'K', img: "red-king.png"}];
     this.stack = [];
-
+    this.playerIsOut = false;
   }
   shuffle() {
     var cards = this.playDeck;
@@ -40,7 +40,10 @@ class Game {
 
   dealCard() {
     if (!this.currentPlayer.hand) {
+      this.playerIsOut = true;
+      console.log(`Player ${this.currentPlayer.id} is out of cards.`)
       switchPlayers();
+      console.log(`Go ahead and deal Player ${this.currentPlayer.id}`)
     };
     this.card = this.currentPlayer.hand[0];
     this.currentPlayer.playCard();
@@ -53,17 +56,23 @@ class Game {
     if (event.key === 'f') {
       this.currentPlayer = this.player1;
     } else this.currentPlayer = this.player2;
-    if (this.checkSlap()) {
-      for (var i = 0; i < this.stack.length; i++) {
-        this.currentPlayer.hand.push(this.stack[i]);  //ADD TO BOTTOM DECK
-      };
-      this.currentPlayer.shuffleHand();
-      console.log(`Snagged by Player ${this.currentPlayer.id}`)
-    } else this.slapError();
-    console.log(`Player: ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
-    this.switchPlayers();
-    this.stack = [];
-    console.log(`Player: ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
+    //if (this.playerIsOut === false) {  // If noone's out of cards
+      if (this.checkSlap()) {
+        this.addStack();
+      } else this.slapError();
+      console.log(`Player: ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
+      this.switchPlayers();
+      this.stack = [];
+      console.log(`Player: ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
+    //} else applyFinishRuleSlap();
+  };
+
+  addStack() {
+    for (var i = 0; i < this.stack.length; i++) {
+      this.currentPlayer.hand.push(this.stack[i]);
+    };
+    this.currentPlayer.shuffleHand();
+    console.log(`Snagged by Player ${this.currentPlayer.id}`);
   };
 
   checkSlap() {
@@ -79,8 +88,13 @@ class Game {
   };
 
   slapError() {
-    shift player .hand after assign and push to otherplayr
-  }
+    var reward = this.currentPlayer[0];
+    this.currentPlayer.hand.shift();
+    this.switchPlayers();
+    this.currentPlayer.hand.push(reward);
+    this.switchPlayers();  //back to fouled player
+    console.log(`Totally Your Bad Player ${this.currentPlayer.id}!`)
+  };
 
   updateWinsCount() {
     if (this.player.id === 0) {
