@@ -3,21 +3,23 @@ class Player {
     this.id = id; // find a way to increment i
     this.wins = wins;
     this.hand = hand;
-
   };
+
   playCard() {
-    // Game.dealCard in JS?
     this.hand.shift();
-    //interface with deck
-    //update hand but not stack
-
-
   };
+
   saveWinsToStorage() {
       //ref id to update
   };
-};
 
-// what in a class determines where things move to?
-// when to play card (is really something like updateHand)?
-//     hand updated @ (Game).updateStack? {Helper function just for player update}
+  shuffleHand() {
+    var cards = this.hand;
+    for (var i = cards.length - 1; i > 0; i--) {
+      var otherIndex = Math.floor(Math.random() * i);
+      var wav = cards[i];
+      cards[i] = cards[otherIndex];
+      cards[otherIndex] = wav;
+    };
+  };
+};

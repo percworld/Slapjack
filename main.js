@@ -6,23 +6,24 @@ var player1Wins = document.querySelector('.player-1-win-num');
 var player2Wins = document.querySelector('.player-2-win-num');
 //All DOM manipulation lives here in Main
 
+var game;
 // Event Listeners
-// do I need to name functions like so or is anonymous ok here?
-//document.addEventListener('keydown', logKey);
 
-// function logKey(e) {
-//   code = e.code
-// }
+window.addEventListener('load', function(){
+  game = new Game();
+  game.dealDeck();
+});
+
 
 window.addEventListener("keydown", function(event) {
   if (event.key === 'f') {
-    player1Slap();
+    game.slapStack(event);
   } else if (event.key === 'j') {
-    player2Slap();
-  } else if (event.key === 'q') {
-    player1Deal();
-  } else if (event.key === 'p') {
-    player2Deal();
+    game.slapStack(event);
+  } else if (event.key === 'q' && game.player1Turn()) {
+    game.dealCard();
+  } else if (event.key === 'p' && !game.player1Turn()) {
+    game.dealCard();
   }
 }, true);
 
@@ -39,4 +40,5 @@ function player1Deal() {
 function player2Deal() {
   console.log('player2Deal');
 }
+
 //Code End
