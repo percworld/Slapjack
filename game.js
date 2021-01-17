@@ -32,7 +32,7 @@ class Game {
       this.player2.hand = hand2;
     };
     this.currentPlayer = this.player1;
-    this.stack = [];
+    console.log(this.player1Turn())
   };
 
   updateStack() {
@@ -51,20 +51,29 @@ class Game {
       this.currentPlayer.playCard();
       this.updateStack();
       console.log(`Player: ${this.currentPlayer.id} Card: ${this.card.order} Cards Left: ${this.currentPlayer.hand.length}`)
+    };
+    if (this.playerIsOut) {
+      this.swapAndRefresh();
+    };
+  };
+
+  swapAndRefresh() {  // last round error handling
+    this.switchPlayers();
+    if (!this.checkHand()) {
       this.switchPlayers();
       if (!this.checkHand()) {
-        this.switchPlayers();
+        this.retrieveStack();
       };
     };
   };
 
-  checkHand() { // to see if player is Not out
+  checkHand() { 
     if (!this.currentPlayer.hand[0]) {
-      this.playerIsOut = true;  //someone is out of cards
+      this.playerIsOut = true;
       //console.log(`Player ${this.currentPlayer.id} is out of cards.`)
       return false;
     } else return true;
-  }
+  };
 
   slapStack(event) {
     if (event.key === 'f') {
@@ -80,16 +89,24 @@ class Game {
     if (this.stack[0]) {  // if a card exists in the stack
       var topCard = this.stack[0].order;
       if (topCard === 'J') {
-        console.log(`Player ${this.currentPlayer.id} takes the stack with a Jack!`)
-      } else if (topCard === this.stack[1].order) {
-        console.log(`Player ${this.currentPlayer.id} snags a Double!`)
-      } else if (topCard === this.stack[2].order) {
-        console.log(`Oooh Player ${this.currentPlayer.id} that's a Sandwich!!`)
-      } else return false;
+        console.log(`Player ${this.currentPlayer.id} takes the stack with a Jack!`);
+        return true;
+      };
+      if (this.stack[1]) {
+        if (topCard === this.stack[1].order) {
+          console.log(`Player ${this.currentPlayer.id} snags a Double!`)
+          return true;
+        };
+      };
+      if (this.stack[2]) {
+        if (topCard === this.stack[2].order) {
+          console.log(`Oooh Player ${this.currentPlayer.id} that's a Sandwich!!`)
+          return true;
+        };
+      };
     } else return false;
-    return true;
+  return false;
   };
-
 
   applyPlayRuleSlap() {
     if (this.checkSlap()) {
@@ -144,27 +161,26 @@ class Game {
 
   slapError() {
     var reward = this.currentPlayer.hand[0];
-    this.currentPlayer.hand.shift();
-    console.log(`Totally Your Bad Player ${this.currentPlayer.id}! Give your top card.`)
-    this.switchPlayers();  //just to add card
-    this.currentPlayer.hand.push(reward);
-    this.currentPlayer.shuffleHand();
-    //this.switchPlayers();  //back to fouled player happens in slap
+    if (this.stack[0]) {
+      this.currentPlayer.hand.shift();
+      console.log(`Totally Your Bad Player ${this.currentPlayer.id}! Give your top card.`)
+      this.switchPlayers();  //just to add card
+      this.currentPlayer.hand.push(reward);
+      this.currentPlayer.shuffleHand();
+      this.switchPlayers();
+    };
   };
 
   updateWinsCount() {
     this.currentPlayer.wins++;
-    console.log(`Player ${this.currentPlayer.id} Wins!`)
+    console.log(`Player ${this.currentPlayer.id} with ${this.currentPlayer.wins} Wins!`)
     this.resetGame();
   };
 
   resetGame() {
-    this.player1.hand = [];
-    this.player2.hand = [];
-    this.currentPlayer = this.player1; //this.switchPlayers();
     this.playerIsOut = false;
+    this.stack = [];
     this.dealDeck();
-    //call an update to main *From main?
   };
 
   switchPlayers() {
