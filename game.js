@@ -1,9 +1,9 @@
 class Game {
   constructor() {
-    this.playDeck = [{order: '1', img: "blue-01.png"}, {order: '2', img: "blue-02.png"}, {order: '3', img: "blue-03.png"}, {order: '4', img: "blue-04.png"}, {order: '5', img: "blue-05.png"}, {order: '6', img: "blue-06.png"}, {order: '7', img: "blue-07.png"}, {order: '8', img: "blue-08.png"}, {order: '9', img: "blue-09.png"}, {order: '10', img: "blue-010.png"}, {order: 'J', img: "blue-jack.png"}, {order: 'Q', img: "blue-queen.png"}, {order: 'K', img: "blue-king.png"},
-                    {order: '1', img: "gold-01.png"}, {order: '2', img: "gold-02.png"}, {order: '3', img: "gold-03.png"}, {order: '4', img: "gold-04.png"}, {order: '5', img: "gold-05.png"}, {order: '6', img: "gold-06.png"}, {order: '7', img: "gold-07.png"}, {order: '8', img: "gold-08.png"}, {order: '9', img: "gold-09.png"}, {order: '10', img: "gold-010.png"}, {order: 'J', img: "gold-jack.png"}, {order: 'Q', img: "gold-queen.png"}, {order: 'K', img: "gold-king.png"},
-                    {order: '1', img: "green-01.png"}, {order: '2', img: "green-02.png"}, {order: '3', img: "green-03.png"}, {order: '4', img: "green-04.png"}, {order: '5', img: "green-05.png"}, {order: '6', img: "green-06.png"}, {order: '7', img: "green-07.png"}, {order: '8', img: "green-08.png"}, {order: '9', img: "green-09.png"}, {order: '10', img: "green-010.png"}, {order: 'J', img: "green-jack.png"}, {order: 'Q', img: "green-queen.png"}, {order: 'K', img: "green-king.png"},
-                    {order: '1', img: "red-01.png"}, {order: '2', img: "red-02.png"}, {order: '3', img: "red-03.png"}, {order: '4', img: "red-04.png"}, {order: '5', img: "red-05.png"}, {order: '6', img: "red-06.png"}, {order: '7', img: "red-07.png"}, {order: '8', img: "red-08.png"}, {order: '9', img: "red-09.png"}, {order: '10', img: "red-010.png"}, {order: 'J', img: "red-jack.png"}, {order: 'Q', img: "red-queen.png"}, {order: 'K', img: "red-king.png"}];
+    this.playDeck = [{order: '1', img: "blue-01.png"}, {order: '2', img: "blue-02.png"}, {order: '3', img: "blue-03.png"}, {order: '4', img: "blue-04.png"}, {order: '5', img: "blue-05.png"}, {order: '6', img: "blue-06.png"}, {order: '7', img: "blue-07.png"}, {order: '8', img: "blue-08.png"}, {order: '9', img: "blue-09.png"}, {order: '10', img: "blue-10.png"}, {order: 'J', img: "blue-jack.png"}, {order: 'Q', img: "blue-queen.png"}, {order: 'K', img: "blue-king.png"},
+                    {order: '1', img: "gold-01.png"}, {order: '2', img: "gold-02.png"}, {order: '3', img: "gold-03.png"}, {order: '4', img: "gold-04.png"}, {order: '5', img: "gold-05.png"}, {order: '6', img: "gold-06.png"}, {order: '7', img: "gold-07.png"}, {order: '8', img: "gold-08.png"}, {order: '9', img: "gold-09.png"}, {order: '10', img: "gold-10.png"}, {order: 'J', img: "gold-jack.png"}, {order: 'Q', img: "gold-queen.png"}, {order: 'K', img: "gold-king.png"},
+                    {order: '1', img: "green-01.png"}, {order: '2', img: "green-02.png"}, {order: '3', img: "green-03.png"}, {order: '4', img: "green-04.png"}, {order: '5', img: "green-05.png"}, {order: '6', img: "green-06.png"}, {order: '7', img: "green-07.png"}, {order: '8', img: "green-08.png"}, {order: '9', img: "green-09.png"}, {order: '10', img: "green-10.png"}, {order: 'J', img: "green-jack.png"}, {order: 'Q', img: "green-queen.png"}, {order: 'K', img: "green-king.png"},
+                    {order: '1', img: "red-01.png"}, {order: '2', img: "red-02.png"}, {order: '3', img: "red-03.png"}, {order: '4', img: "red-04.png"}, {order: '5', img: "red-05.png"}, {order: '6', img: "red-06.png"}, {order: '7', img: "red-07.png"}, {order: '8', img: "red-08.png"}, {order: '9', img: "red-09.png"}, {order: '10', img: "red-10.png"}, {order: 'J', img: "red-jack.png"}, {order: 'Q', img: "red-queen.png"}, {order: 'K', img: "red-king.png"}];
     this.playerIsOut = false;
   };
   shuffle() {
@@ -81,40 +81,51 @@ class Game {
   slapStack(event) {
     if (event.key === 'f') {
       this.currentPlayer = this.player1;
-    } else if (event.key === 'j') {
+    };
+    if (event.key === 'j') {
       this.currentPlayer = this.player2;
-    }
+    };
     if (!this.playerIsOut) {  // If noone's out of cards
       this.applyPlayRuleSlap();
-    } else if (this.playerIsOut) {
-      //if (this.player1.hand.length != 26) {
-        this.applyFinishRuleSlap();
-      //};
-    };
+    } else this.applyFinishRuleSlap();
   };
 
 
   checkSlap() {
     if (this.stack[0]) {  // if a card exists in the stack
       var topCard = this.stack[0].order;
-      if (topCard === 'J') {
-        console.log(`Player ${this.currentPlayer.id} takes the stack with a Jack!`);
+      if (this.isJackSlap(topCard) || this.isDouble(topCard) || this.isSandwich(topCard)) {
         return true;
       };
-      if (this.stack[1]) {
-        if (topCard === this.stack[1].order) {
-          console.log(`Player ${this.currentPlayer.id} snags a Double!`)
-          return true;
-        };
-      };
-      if (this.stack[2]) {
-        if (topCard === this.stack[2].order) {
-          console.log(`Oooh Player ${this.currentPlayer.id} that's a Sandwich!!`)
-          return true;
-        };
-      };
+    };
+    return false;
+  };
+
+  isJackSlap(topCard) {
+    if (topCard === 'J') {
+      console.log(`Player ${this.currentPlayer.id} takes the stack with a Jack!`);
+      return true;
     } else return false;
-  return false;
+  };
+
+  isDouble(topCard) {
+    if (this.stack[1]) {
+      if (topCard === this.stack[1].order) {
+        console.log(`Player ${this.currentPlayer.id} snags a Double!`)
+        return true;
+      };
+    };
+    return false;
+  };
+
+  isSandwich(topCard) {
+    if (this.stack[2]) {
+      if (topCard === this.stack[2].order) {
+        console.log(`Oooh Player ${this.currentPlayer.id} that's a Sandwich!!`)
+        return true;
+      };
+    };
+    return false;
   };
 
   applyPlayRuleSlap() {
@@ -188,7 +199,6 @@ class Game {
 
   resetGame() {
     this.playerIsOut = false;
-    this.stack = [];
     this.dealDeck();
   };
 
