@@ -47,7 +47,6 @@ class Game {
   };
 
   dealCard() {
-    //console.log(`ping player ${this.currentPlayer.id}`)
     if (this.checkHand()) {
       this.card = this.currentPlayer.hand[0];
       this.currentPlayer.playCard();
@@ -87,7 +86,7 @@ class Game {
     }
     if (!this.playerIsOut) {  // If noone's out of cards
       this.applyPlayRuleSlap();
-    } else {
+    } else if (this.playerIsOut) {
       //if (this.player1.hand.length != 26) {
         this.applyFinishRuleSlap();
       //};
@@ -131,30 +130,29 @@ class Game {
   };
 
   checkFinishRuleSlap() {
-    if (this.stack[0]) {   // if there even is a card
+    if (this.stack[0]) {   // if stack contains a card
       var topCard = this.stack[0].order;
       if (topCard === 'J') {
         if (!this.checkHand()) { //current is out
           this.playerIsOut = false; //he's back in
           console.log(`Player ${this.currentPlayer.id} takes the stack with a Jack! Back in the game!`)
-        }; //else this.updateWinsCount();
+        };
       } else return false;
     } else return false;
     return true;
   };
 
   applyFinishRuleSlap() {
-      if (this.checkFinishRuleSlap()) { //slap is valid
+      if (this.checkFinishRuleSlap()) {
         this.retrieveStack();
-        if (this.playerIsOut) { // someone is still out
-          this.updateWinsCount(); //winner
+        if (this.playerIsOut) {
+          this.updateWinsCount();
+          return;
         };
-      } else {                        //slap is invalid
-        if (!this.checkHand()) { //player has no cards
+      } else if (!this.checkHand()) { //player has no cards on Bad Slap
           this.switchPlayers();
           this.updateWinsCount();
-        } else this.slapError();
-      };
+        } else {this.slapError();}
       console.log(`Player: ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
       this.switchPlayers();
       console.log(`Player: ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
@@ -197,8 +195,6 @@ class Game {
   switchPlayers() {
     if (this.currentPlayer === this.player1) {
       this.currentPlayer = this.player2;
-    } else this.currentPlayer = this.player1; //toggle turn
+    } else this.currentPlayer = this.player1;
   };
 };
-
-// card images (Line 7) input type="file" in HTML, appendChild?

@@ -25,10 +25,10 @@ h1 {
   width: 100%;
 }
 
-
-.deck .back-card {
-  height: 260px;;
-  width: 163px;
+/* set min height and width */
+.deck, .back-card, .face-card {
+  height: 300px;
+  width: 170px;
   background-color: #0B5345
 }
 
@@ -42,9 +42,9 @@ h1 {
 }
 
 .player-1-win-num {
-  margin-left: 16%;
+  margin-left: 14%;
 }
 
 .player-2-win-num {
-  margin-right: 16%;
+  margin-right: 14%;
 }

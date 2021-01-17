@@ -1,6 +1,6 @@
 class Player {
   constructor(id, wins, hand) {
-    this.id = id; // find a way to increment i
+    this.id = id; 
     this.wins = wins;
     this.hand = hand;
   };

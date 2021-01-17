@@ -14,7 +14,7 @@ window.addEventListener('load', function(){
 });
 
 
-window.addEventListener("keydown", function(event) {
+window.addEventListener("keyup", function(event) { //
   if (event.key === 'f') {
     game.slapStack(event);
   } else if (event.key === 'j') {
@@ -36,8 +36,8 @@ function updateDialogue() {
 
 function updateStack() {
   if (game.stack[0]) {
-    stack.innerHTML = `<img class="face-card" src="./assets/${game.stack[0]}"`;
-  } //else stack.innerHTML = "";
+    stack.innerHTML = `<img class="face-card" src="./assets/${game.stack[0].img}"/>`;
+  } else stack.innerHTML = "";
 };
 
 function updateWins() {
