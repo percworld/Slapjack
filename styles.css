@@ -29,7 +29,11 @@ h1 {
 .deck {
   height: 250px;;
   width: 163px;
-  background-color: #0B5345 
+  background-color: #0B5345
+}
+
+.back-card {
+  
 }
 
 .number-wins {

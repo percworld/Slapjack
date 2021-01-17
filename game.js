@@ -31,6 +31,7 @@ class Game {
       this.player1.hand = hand1;
       this.player2.hand = hand2;
     };
+    this.stack = [];
     this.currentPlayer = this.player1;
     console.log(this.player1Turn())
   };
@@ -46,11 +47,13 @@ class Game {
   };
 
   dealCard() {
+    //console.log(`ping player ${this.currentPlayer.id}`)
     if (this.checkHand()) {
       this.card = this.currentPlayer.hand[0];
       this.currentPlayer.playCard();
       this.updateStack();
       console.log(`Player: ${this.currentPlayer.id} Card: ${this.card.order} Cards Left: ${this.currentPlayer.hand.length}`)
+      this.switchPlayers();
     };
     if (this.playerIsOut) {
       this.swapAndRefresh();
@@ -67,7 +70,7 @@ class Game {
     };
   };
 
-  checkHand() { 
+  checkHand() {
     if (!this.currentPlayer.hand[0]) {
       this.playerIsOut = true;
       //console.log(`Player ${this.currentPlayer.id} is out of cards.`)
@@ -78,10 +81,16 @@ class Game {
   slapStack(event) {
     if (event.key === 'f') {
       this.currentPlayer = this.player1;
-    } else this.currentPlayer = this.player2;
+    } else if (event.key === 'j') {
+      this.currentPlayer = this.player2;
+    }
     if (!this.playerIsOut) {  // If noone's out of cards
       this.applyPlayRuleSlap();
-    } else this.applyFinishRuleSlap();
+    } else {
+      //if (this.player1.hand.length != 26) {
+        this.applyFinishRuleSlap();
+      //};
+    };
   };
 
 
@@ -173,6 +182,7 @@ class Game {
 
   updateWinsCount() {
     this.currentPlayer.wins++;
+    this.currentPlayer.saveWinsToStorage();
     console.log(`Player ${this.currentPlayer.id} with ${this.currentPlayer.wins} Wins!`)
     this.resetGame();
   };

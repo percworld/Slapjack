@@ -10,7 +10,8 @@ class Player {
   };
 
   saveWinsToStorage() {
-      //ref id to update
+
+      //ref this.id to update this.wins on local storage
   };
 
   shuffleHand() {

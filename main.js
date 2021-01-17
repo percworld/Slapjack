@@ -24,9 +24,15 @@ window.addEventListener("keydown", function(event) {
     game.dealCard();
   } else if (event.key === 'p' && !game.player1Turn()) {
     game.dealCard();
-  }
+  };
+  updateStack();
 }, true);
 
 // Event handling
 
+function updateStack() {
+  if (game.stack[0]) {
+    stack.innerHTML = <img class="face-card" src=`./assets/${game.stack[0]}`);
+  } else stack.innerHTML = "";
+}
 //Code End
