@@ -5,7 +5,7 @@ class Game {
                     {order: '1', img: "green-01.png"}, {order: '2', img: "green-02.png"}, {order: '3', img: "green-03.png"}, {order: '4', img: "green-04.png"}, {order: '5', img: "green-05.png"}, {order: '6', img: "green-06.png"}, {order: '7', img: "green-07.png"}, {order: '8', img: "green-08.png"}, {order: '9', img: "green-09.png"}, {order: '10', img: "green-010.png"}, {order: 'J', img: "green-jack.png"}, {order: 'Q', img: "green-queen.png"}, {order: 'K', img: "green-king.png"},
                     {order: '1', img: "red-01.png"}, {order: '2', img: "red-02.png"}, {order: '3', img: "red-03.png"}, {order: '4', img: "red-04.png"}, {order: '5', img: "red-05.png"}, {order: '6', img: "red-06.png"}, {order: '7', img: "red-07.png"}, {order: '8', img: "red-08.png"}, {order: '9', img: "red-09.png"}, {order: '10', img: "red-010.png"}, {order: 'J', img: "red-jack.png"}, {order: 'Q', img: "red-queen.png"}, {order: 'K', img: "red-king.png"}];
     this.playerIsOut = false;
-  }
+  };
   shuffle() {
     var cards = this.playDeck;
     for (var i = cards.length - 1; i > 0; i--) {
@@ -52,6 +52,7 @@ class Game {
       this.card = this.currentPlayer.hand[0];
       this.currentPlayer.playCard();
       this.updateStack();
+      this.text = `Player go time`
       console.log(`Player: ${this.currentPlayer.id} Card: ${this.card.order} Cards Left: ${this.currentPlayer.hand.length}`)
       this.switchPlayers();
     };

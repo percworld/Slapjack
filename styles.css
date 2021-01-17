@@ -26,14 +26,14 @@ h1 {
 }
 
 
-.deck {
-  height: 250px;;
+.deck .back-card {
+  height: 260px;;
   width: 163px;
   background-color: #0B5345
 }
 
 .back-card {
-  
+
 }
 
 .number-wins {
@@ -42,9 +42,9 @@ h1 {
 }
 
 .player-1-win-num {
-  margin-left: 13vw;
+  margin-left: 16%;
 }
 
 .player-2-win-num {
-  margin-right: 13vw;
+  margin-right: 16%;
 }
