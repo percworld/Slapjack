@@ -4,6 +4,8 @@ var deck2 = document.getElementById('player2');
 var stack = document.getElementById('stack');
 var player1Wins = document.querySelector('.player-1-win-num');
 var player2Wins = document.querySelector('.player-2-win-num');
+var player1CardCount = document.querySelector('.player-1-card-count');
+var player2CardCount = document.querySelector('.player-2-card-count');
 
 var game;
 
@@ -25,6 +27,7 @@ window.addEventListener("keydown", function(event) { //
   updateDialogue();
   updateStack();
   updateWins();
+  updateCardCount();
 }, true);
 
 
@@ -47,9 +50,14 @@ function updateWins() {
 function updateStackColor(id) {
   var card = document.querySelector('.face-card');
   if (id === 1 && card) {
-    card.classList.add('stack-1');
-  };
-  if (id === 2 && card) {
     card.classList.add('stack-2');
   };
+  if (id === 2 && card) {
+    card.classList.add('stack-1');
+  };
+};
+
+function updateCardCount() {
+  player1CardCount.innerText = `${game.player1.hand.length}`;
+  player2CardCount.innerText = `${game.player2.hand.length}`;
 };
