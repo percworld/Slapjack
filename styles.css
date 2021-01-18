@@ -72,15 +72,16 @@ h1 {
 }
 
 .player-1-win-num{
-  margin-left: 14.5%;
+  margin-left: 14.75%;
 }
 
 .player-2-win-num {
-  margin-right: 14.5%;
+  margin-right: 15%;
 }
 
 .player-1-card-count, .player-2-card-count {
   margin-top: -5vh;
+  margin-bottom: 1vh;
  font-size: 43px;
 }
 

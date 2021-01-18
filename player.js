@@ -10,8 +10,8 @@ class Player {
   };
 
   saveWinsToStorage() {
-
-      //ref this.id to update this.wins on local storage
+    var player = JSON.stringify(this);
+    localStorage.setItem(`player${this.id}`, player);
   };
 
   shuffleHand() {
