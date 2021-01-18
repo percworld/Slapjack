@@ -14,10 +14,18 @@ main {
 h1 {
   display: inline-flex;
   justify-content: center;
-  margin-top: -3vh;
+  margin-top: 6vh;
   width: 100%;
   position: absolute;
 
+}
+
+.instructions {
+  border: none;
+  border-radius: 5px;
+  background-color: #CC0000;
+  background-size: 3vh 5vw;
+  outline: none;
 }
 
 .container {
@@ -58,15 +66,28 @@ h1 {
 
 }
 
-.number-wins {
+.number-wins, .card-counter {
   display: flex;
   justify-content: space-between;
 }
 
-.player-1-win-num {
-  margin-left: 14%;
+.player-1-win-num{
+  margin-left: 14.5%;
 }
 
 .player-2-win-num {
-  margin-right: 14%;
+  margin-right: 14.5%;
+}
+
+.player-1-card-count, .player-2-card-count {
+  margin-top: -5vh;
+ font-size: 43px;
+}
+
+.player-1-card-count {
+  margin-left: 15%;
+}
+
+.player-2-card-count{
+  margin-right: 15%;
 }

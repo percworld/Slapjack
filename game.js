@@ -6,7 +6,7 @@ class Game {
                     {order: '1', img: "red-01.png"}, {order: '2', img: "red-02.png"}, {order: '3', img: "red-03.png"}, {order: '4', img: "red-04.png"}, {order: '5', img: "red-05.png"}, {order: '6', img: "red-06.png"}, {order: '7', img: "red-07.png"}, {order: '8', img: "red-08.png"}, {order: '9', img: "red-09.png"}, {order: '10', img: "red-10.png"}, {order: 'J', img: "red-jack.png"}, {order: 'Q', img: "red-queen.png"}, {order: 'K', img: "red-king.png"}];
     this.playerIsOut = false;
   };
-  
+
   shuffle() {
     var cards = this.playDeck;
     for (var i = cards.length - 1; i > 0; i--) {
@@ -188,12 +188,16 @@ class Game {
       this.currentPlayer.hand.shift();
       this.text = `BAD SLAP! Player ${this.currentPlayer.id} forfeits a card to Player `;
       console.log(`Totally Your Bad Player ${this.currentPlayer.id}! Give your top card.`)
-      this.switchPlayers();  //just to add card
-      this.text += `${this.currentPlayer.id}!`;
-      this.currentPlayer.hand.push(reward);
-      this.currentPlayer.shuffleHand();
-      this.switchPlayers();
+      this.transferSlapCard();
     };
+  };
+
+  transferSlapCard() {
+    this.switchPlayers();
+    this.text += `${this.currentPlayer.id}!`;
+    this.currentPlayer.hand.push(reward);
+    this.currentPlayer.shuffleHand();
+    this.switchPlayers();
   };
 
   updateWinsCount() {
