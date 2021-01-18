@@ -1,10 +1,12 @@
 body {
   font-family: 'Libre Baskerville', serif;
+  color: white;
   margin: 0px;
+  background-image: linear-gradient(red,orange,yellow,green,blue,indigo,violet);
 }
 
 main {
-  background-color: #641E16;
+
   height: 100vh;
   width: inherit;
 }
@@ -12,8 +14,9 @@ main {
 h1 {
   display: inline-flex;
   justify-content: center;
-  margin-top: 4vh;
+  margin-top: -3vh;
   width: 100%;
+  position: absolute;
 
 }
 
@@ -23,13 +26,32 @@ h1 {
   align-items: center;
   height: 60%;
   width: 100%;
+  margin-top: 10vh;
 }
 
 /* set min height and width */
 .deck, .back-card, .face-card {
   height: 300px;
   width: 170px;
-  background-color: #0B5345
+}
+
+#player-1 {
+  box-shadow: 6px 6px 9px 1px #E74C93,
+              -6px -6px 9px 1px #E74C93;
+}
+#player-2 {
+  box-shadow: 6px 6px 9px 1px #2ECC71,
+              -6px -6px 9px 1px #2ECC71;
+}
+
+.stack-1 {
+  box-shadow: 6px 6px 9px 1px #E74C93,
+              -6px -6px 9px 1px #E74C93;
+}
+
+.stack-2 {
+  box-shadow: 6px 6px 9px 1px #2ECC71,
+              -6px -6px 9px 1px #2ECC71;
 }
 
 .back-card {
