@@ -18,8 +18,15 @@ class Game {
   };
 
   constructPlayers(hand1, hand2) {
-    this.player1 = new Player(1, this.player1.wins, hand1);
-    this.player2 = new Player(2, this.player2.wins, hand2);
+    if (this.player1) {
+      var wins1 = this.player1.wins;
+      var wins2 = this.player2.wins;
+    } else {
+      wins1 = 0;
+      wins2 = 0;
+    };
+    this.player1 = new Player(1, wins1, hand1);
+    this.player2 = new Player(2, wins2, hand2);
   };
 
   dealDeck() {
@@ -76,7 +83,7 @@ class Game {
     if (event.key === 'j') {
       this.currentPlayer = this.player2;
     };
-    if (!this.playerIsOut) {  // If noone's out of cards
+    if (!this.playerIsOut) {
       this.applyPlayRuleSlap();
     } else this.applyFinishRuleSlap();
   };
@@ -125,7 +132,7 @@ class Game {
       this.slapError();
       this.switchPlayers();
     };
-    this.switchPlayers(); // delete this line to toggle off extra punishment
+    this.switchPlayers(); // user: House Rules! Delete this line to toggle off extra punishment
   };
 
   checkFinishRuleSlap() {
@@ -148,7 +155,7 @@ class Game {
           this.updateWinsCount();
           return;
         };
-      } else if (!this.checkHand()) { //player has no cards on Bad Slap
+      } else if (!this.checkHand()) {
           this.switchPlayers();
           this.updateWinsCount();
         } else {this.slapError();}

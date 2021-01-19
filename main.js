@@ -29,8 +29,8 @@ window.addEventListener("keydown", function(event) { //
 function startGame() {
   game = new Game();
   getPlayers();
-  updateWins();
   game.dealDeck();
+  updateWins();
 };
 
 function updateDialogue() {
@@ -51,16 +51,10 @@ function updateWins() {
 
 function updateStackColor(id) {
   var card = document.querySelector('.face-card');
-  if (id === 1 && card) {
+  if ((id === 1 && card) || !game.player1.hand[0]) {
     card.classList.add('stack-2');
   };
-  if (id === 2 && card) {
-    card.classList.add('stack-1');
-  };
-  if (!game.player1.hand[0] && card) {
-    card.classList.add('stack-2');
-  };
-  if (!game.player2.hand[0] && card) {
+  if ((id === 2 && card) || !game.player2.hand[0]) {
     card.classList.add('stack-1');
   };
 };
