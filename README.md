@@ -25,3 +25,13 @@ Card Game - final assessment and solo project at Turing/1-module
 
 # Enjoy playing Slapjack!
 
+#### A new to me technology that was used is the WAVE auditing tool for evaluating code for individuals with visual disabilities. It available as a chrome extension and I will highly recommend it to others for accessibility: [WAVE](https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh)
+
+#### This project was a crucial turning point for me in understanding the intricacies of class structure and how information is transferred, where the source of truth should be assigned, and how to manage the dom only within the main file, while keeping a data model living inside each class.
+
+#### The game class has access to the player but the player class only knows it's own methods. The main.js file passes in user input and manipulates the DOM.  This was an excellent final project to begin to practice the fundamentals of how to implement this kind of design.
+
+#### My biggest win in this project was that I thought it was impossible to have only one variable declaration in main.js besides query selectors.  Not only was it possible but when it came time to create that variable, game, it was entirely logical that it was the only variable needed!
+
+
+
