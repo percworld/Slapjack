@@ -42,7 +42,7 @@ function updateDialogue() {
 
 function updateStack() {
   if (game.stack[0]) {
-    stack.innerHTML = `<img class="face-card" src="./assets/${game.stack[0].img}"/>`;
+    stack.innerHTML = `<img class="face-card" src="./assets/${game.stack[0].img}" alt="${game.stack[0].order} Card"/>`;
   } else stack.innerHTML = "";
   updateStackColor(game.currentPlayer.id);
 };
