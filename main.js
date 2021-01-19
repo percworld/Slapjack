@@ -57,6 +57,12 @@ function updateStackColor(id) {
   if (id === 2 && card) {
     card.classList.add('stack-1');
   };
+  if (!game.player1.hand[0] && card) {
+    card.classList.add('stack-2');
+  };
+  if (!game.player2.hand[0] && card) {
+    card.classList.add('stack-1');
+  };
 };
 
 function updateCardCount() {
