@@ -1,3 +1,4 @@
+var instructions = document.querySelector('.instructions');
 var dialogue = document.querySelector('.dialogue');
 var deck1 = document.getElementById('player-1');
 var deck2 = document.getElementById('player2');
@@ -9,6 +10,7 @@ var player2CardCount = document.querySelector('.player-2-card-count');
 
 var game;
 
+instructions.addEventListener('click', showInstructions);
 window.addEventListener('load', startGame);
 window.addEventListener("keydown", function(event) { //
   if (event.key === 'f') {
@@ -77,4 +79,8 @@ function getPlayers() {
     game.player1 = JSON.parse(localPlayer1);
     game.player2 = JSON.parse(localPlayer2);
   }
+};
+
+function showInstructions() {
+  instructions.classList.remove('hidden');
 };
