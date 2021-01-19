@@ -18,20 +18,18 @@ class Game {
   };
 
   constructPlayers(hand1, hand2) {
-    this.player1 = new Player(1, 0, hand1);
-    this.player2 = new Player(2, 0, hand2);
+    this.player1 = new Player(1, this.player1.wins, hand1);
+    this.player2 = new Player(2, this.player2.wins, hand2);
   };
 
   dealDeck() {
     this.shuffle();
     var hand1 = this.playDeck.slice(0, 26);
     var hand2 = this.playDeck.slice(26);
-    if (!this.player1) {
-      this.constructPlayers(hand1, hand2);
-    } else {
-      this.player1.hand = hand1;
-      this.player2.hand = hand2;
-    };
+    this.constructPlayers(hand1, hand2);
+    this.player1.hand = hand1;
+    this.player2.hand = hand2;
+
     this.stack = [];
     this.currentPlayer = this.player1;
   };
@@ -47,33 +45,26 @@ class Game {
   };
 
   dealCard() {
-    if (this.checkHand()) {
-      this.card = this.currentPlayer.hand[0];
-      this.currentPlayer.playCard();
-      this.updateStack();
-      this.text = " ";
-      console.log(`Player: ${this.currentPlayer.id} Card: ${this.card.order} Cards Left: ${this.currentPlayer.hand.length}`)
-      this.switchPlayers();
-    };
-    if (this.playerIsOut) {
-      this.swapAndRefresh();
-    };
+    this.card = this.currentPlayer.hand[0];
+    this.currentPlayer.playCard();
+    this.updateStack();
+    this.text = " ";
+    this.checkBothHands();
   };
 
-  swapAndRefresh() {  // last round error handling
+  checkBothHands() {
     this.switchPlayers();
     if (!this.checkHand()) {
       this.switchPlayers();
-      if (!this.checkHand()) {
-        this.retrieveStack();
-      };
+    };
+    if (!this.checkHand()) {
+      this.retrieveStack();
     };
   };
 
   checkHand() {
     if (!this.currentPlayer.hand[0]) {
       this.playerIsOut = true;
-      //console.log(`Player ${this.currentPlayer.id} is out of cards.`)
       return false;
     } else return true;
   };
@@ -90,7 +81,6 @@ class Game {
     } else this.applyFinishRuleSlap();
   };
 
-
   checkSlap() {
     if (this.stack[0]) {  // if a card exists in the stack
       var topCard = this.stack[0].order;
@@ -104,7 +94,6 @@ class Game {
   isJackSlap(topCard) {
     if (topCard === 'J') {
       this.text = `SLAPJACK! Player ${this.currentPlayer.id} takes the pile!`;
-      console.log(`Player ${this.currentPlayer.id} takes the stack with a Jack!`);
       return true;
     } else return false;
   };
@@ -113,7 +102,6 @@ class Game {
     if (this.stack[1]) {
       if (topCard === this.stack[1].order) {
         this.text = `DOUBLE! Player ${this.currentPlayer.id} takes the pile!`;
-        console.log(`Player ${this.currentPlayer.id} snags a Double!`)
         return true;
       };
     };
@@ -124,7 +112,6 @@ class Game {
     if (this.stack[2]) {
       if (topCard === this.stack[2].order) {
         this.text = `SANDWICH! Player ${this.currentPlayer.id} takes the pile!`;
-        console.log(`Oooh Player ${this.currentPlayer.id} that's a Sandwich!!`)
         return true;
       };
     };
@@ -138,19 +125,16 @@ class Game {
       this.slapError();
       this.switchPlayers();
     };
-    console.log(`Player ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
-    this.switchPlayers();
-    console.log(`Player ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
+    this.switchPlayers(); // delete this line to toggle off extra punishment
   };
 
   checkFinishRuleSlap() {
-    if (this.stack[0]) {   // if stack contains a card
+    if (this.stack[0]) {
       var topCard = this.stack[0].order;
       if (topCard === 'J') {
-        if (!this.checkHand()) { //current is out
-          this.playerIsOut = false; //he's back in
+        if (!this.checkHand()) {
+          this.playerIsOut = false;
           this.text = `Player ${this.currentPlayer.id} is back in the game! Player ${this.currentPlayer.id} takes the pile!`;
-          console.log(`Player ${this.currentPlayer.id} takes the stack with a Jack! Back in the game!`)
         };
       } else return false;
     } else return false;
@@ -168,9 +152,7 @@ class Game {
           this.switchPlayers();
           this.updateWinsCount();
         } else {this.slapError();}
-      console.log(`Player: ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
       this.switchPlayers();
-      console.log(`Player: ${this.currentPlayer.id} Cards: ${this.currentPlayer.hand.length}`);
     };
 
   retrieveStack() {
@@ -179,7 +161,6 @@ class Game {
     };
     this.stack = [];
     this.currentPlayer.shuffleHand();
-    console.log(`Player ${this.currentPlayer.id} takes the Pile!`);
   };
 
   slapError() {
@@ -187,12 +168,11 @@ class Game {
     if (this.stack[0]) {
       this.currentPlayer.hand.shift();
       this.text = `BAD SLAP! Player ${this.currentPlayer.id} forfeits a card to Player `;
-      console.log(`Totally Your Bad Player ${this.currentPlayer.id}! Give your top card.`)
-      this.transferSlapCard();
+      this.transferSlapCard(reward);
     };
   };
 
-  transferSlapCard() {
+  transferSlapCard(reward) {
     this.switchPlayers();
     this.text += `${this.currentPlayer.id}!`;
     this.currentPlayer.hand.push(reward);
@@ -203,9 +183,7 @@ class Game {
   updateWinsCount() {
     this.text = `Player ${this.currentPlayer.id} Wins!`;
     this.currentPlayer.wins++;
-    this.currentPlayer.saveWinsToStorage();
-    console.log(`Player ${this.currentPlayer.id} with ${this.currentPlayer.wins} Wins!`)
-    this.resetGame();
+    this.savePlayerStatus();
   };
 
   resetGame() {
@@ -217,5 +195,11 @@ class Game {
     if (this.currentPlayer === this.player1) {
       this.currentPlayer = this.player2;
     } else this.currentPlayer = this.player1;
+  };
+
+  savePlayerStatus() {
+    this.player1.saveWinsToStorage();
+    this.player2.saveWinsToStorage();
+    this.resetGame();
   };
 };

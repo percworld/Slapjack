@@ -9,11 +9,7 @@ var player2CardCount = document.querySelector('.player-2-card-count');
 
 var game;
 
-window.addEventListener('load', function(){
-  game = new Game();
-  game.dealDeck();
-});
-
+window.addEventListener('load', startGame);
 window.addEventListener("keydown", function(event) { //
   if (event.key === 'f') {
     game.slapStack(event);
@@ -30,6 +26,12 @@ window.addEventListener("keydown", function(event) { //
   updateCardCount();
 }, true);
 
+function startGame() {
+  game = new Game();
+  getPlayers();
+  updateWins();
+  game.dealDeck();
+};
 
 function updateDialogue() {
   dialogue.innerText = `${game.text}`;
@@ -55,9 +57,24 @@ function updateStackColor(id) {
   if (id === 2 && card) {
     card.classList.add('stack-1');
   };
+  if (!game.player1.hand[0] && card) {
+    card.classList.add('stack-2');
+  };
+  if (!game.player2.hand[0] && card) {
+    card.classList.add('stack-1');
+  };
 };
 
 function updateCardCount() {
   player1CardCount.innerText = `${game.player1.hand.length}`;
   player2CardCount.innerText = `${game.player2.hand.length}`;
+};
+
+function getPlayers() {
+  var localPlayer1 = localStorage.getItem("player1");
+  var localPlayer2 = localStorage.getItem("player2");
+  if (localPlayer1) {
+    game.player1 = JSON.parse(localPlayer1);
+    game.player2 = JSON.parse(localPlayer2);
+  }
 };
