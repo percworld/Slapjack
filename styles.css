@@ -92,3 +92,7 @@ h1 {
 .player-2-card-count{
   margin-right: 15%;
 }
+
+.hidden {
+  display: none;
+}
