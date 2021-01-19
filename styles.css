@@ -17,15 +17,19 @@ h1 {
   margin-top: 6vh;
   width: 100%;
   position: absolute;
-
+  font-size: 45px;
 }
 
-.instructions {
+.instructions-button {
+  display: block;
   border: none;
+  outline: none;
   border-radius: 5px;
   background-color: #CC0000;
-  background-size: 3vh 5vw;
-  outline: none;
+  height: 4vh;
+  width: 8vw;
+  font-size: 17px;
+  color: white;
 }
 
 .container {
@@ -37,10 +41,9 @@ h1 {
   margin-top: 10vh;
 }
 
-/* set min height and width */
 .deck, .back-card, .face-card {
-  height: 300px;
-  width: 170px;
+  height: 315px;
+  width: 200px;
 }
 
 #player-1 {
@@ -72,11 +75,13 @@ h1 {
 }
 
 .player-1-win-num{
-  margin-left: 14.75%;
+  margin-left: 14%;
+  font-size: 23px;
 }
 
 .player-2-win-num {
-  margin-right: 15%;
+  margin-right: 14%;
+  font-size: 23px;
 }
 
 .player-1-card-count, .player-2-card-count {
