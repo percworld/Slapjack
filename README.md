@@ -14,7 +14,7 @@ Card Game - final assessment and solo project at Turing/1-module
 
 ### Rules:
 ### 1. Players take turns dealing a card. Player 1's deal key is the letter 'q' and player 2's is the letter 'p'.
-### 2. If a player correctly slaps the central pile they may take it and add it to their hand. Player 1's slap is the letter' f' and player 2's slap is the letter ###    'j' on your keyboard.
+### 2. If a player correctly slaps the central pile they may take it and add it to their hand. Player 1's slap is the letter' f' and player 2's slap is the letter  'j' on your keyboard.
 ### 3. A correct slap is either a Jack card, two cards of the same value in a row, or two cards of the same value sandwiched by another card.
 ### 4. Once a player runs out of cards they may redeem themselves and get back in the game but only with a Jack slap!
 ### 5. Both players must abide by this end-of-game extra rule.
