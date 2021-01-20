@@ -18,8 +18,13 @@ class Game {
   };
 
   constructPlayers(hand1, hand2) {
-    this.player1 = new Player(1, this.player1.wins, hand1);
-    this.player2 = new Player(2, this.player2.wins, hand2);
+    if (this.player1) {
+      this.player1 = new Player(1, this.player1.wins, hand1);
+      this.player2 = new Player(2, this.player2.wins, hand2);
+    } else {
+      this.player1 = new Player(1, 0, hand1);
+      this.player2 = new Player(2, 0, hand2);
+    }
   };
 
   dealDeck() {
@@ -76,13 +81,13 @@ class Game {
     if (event.key === 'j') {
       this.currentPlayer = this.player2;
     };
-    if (!this.playerIsOut) {  // If noone's out of cards
+    if (!this.playerIsOut) {
       this.applyPlayRuleSlap();
     } else this.applyFinishRuleSlap();
   };
 
   checkSlap() {
-    if (this.stack[0]) {  // if a card exists in the stack
+    if (this.stack[0]) {  
       var topCard = this.stack[0].order;
       if (this.isJackSlap(topCard) || this.isDouble(topCard) || this.isSandwich(topCard)) {
         return true;
@@ -148,7 +153,7 @@ class Game {
           this.updateWinsCount();
           return;
         };
-      } else if (!this.checkHand()) { //player has no cards on Bad Slap
+      } else if (!this.checkHand()) {
           this.switchPlayers();
           this.updateWinsCount();
         } else {this.slapError();}
