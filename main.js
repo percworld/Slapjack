@@ -59,7 +59,7 @@ function updatePlayerDecks() {
     deck1.classList.remove('visibility-hidden');
   };
   if (game.player1.hand[0]) {
-    deck1.classList.remove('visibility-hidden');
+    deck2.classList.remove('visibility-hidden');
   };
 };
 
