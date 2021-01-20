@@ -45,6 +45,23 @@ function updateStack() {
     stack.innerHTML = `<img class="face-card" src="./assets/${game.stack[0].img}" alt="${game.stack[0].order} Card"/>`;
   } else stack.innerHTML = "";
   updateStackColor(game.currentPlayer.id);
+  updatePlayerDecks();
+};
+
+function updatePlayerDecks() {
+  if (!game.player1.hand[0]) {
+    deck1.classList.add('hidden');
+    deck1.classList.remove('player-1')
+  };
+  if (!game.player2.hand[0]) {
+    deck2.classList.add('hidden');
+  };
+  if (game.player1.hand[0]) {
+    deck1.classList.remove('hidden');
+  };
+  if (game.player1.hand[0]) {
+    deck1.classList.remove('hidden');
+  };
 };
 
 function updateWins() {
@@ -84,5 +101,4 @@ function getPlayers() {
 
 function showInstructions() {
   instructions.classList.toggle('hidden');
-
 };
