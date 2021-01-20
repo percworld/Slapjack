@@ -26,8 +26,8 @@ h1 {
   outline: none;
   border-radius: 5px;
   background-color: #CC0000;
-  height: 4vh;
-  width: 8vw;
+  height: 5vh;
+  width: 9vw;
   font-size: 17px;
   color: white;
 }
@@ -96,6 +96,10 @@ h1 {
 
 .player-2-card-count{
   margin-right: 15%;
+}
+
+.visibility-hidden {
+  visibility : hidden;
 }
 
 .hidden {

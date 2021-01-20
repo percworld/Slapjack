@@ -2,7 +2,7 @@ var instructions = document.querySelector('.instructions');
 var instructionsButton = document.querySelector('.instructions-button');
 var dialogue = document.querySelector('.dialogue');
 var deck1 = document.getElementById('player-1');
-var deck2 = document.getElementById('player2');
+var deck2 = document.getElementById('player-2');
 var stack = document.getElementById('stack');
 var player1Wins = document.querySelector('.player-1-win-num');
 var player2Wins = document.querySelector('.player-2-win-num');
@@ -32,8 +32,8 @@ window.addEventListener("keydown", function(event) { //
 function startGame() {
   game = new Game();
   getPlayers();
-  updateWins();
   game.dealDeck();
+  updateWins();
 };
 
 function updateDialogue() {
@@ -45,11 +45,27 @@ function updateStack() {
     stack.innerHTML = `<img class="face-card" src="./assets/${game.stack[0].img}" alt="${game.stack[0].order} Card"/>`;
   } else stack.innerHTML = "";
   updateStackColor(game.currentPlayer.id);
+  updatePlayerDecks();
+};
+
+function updatePlayerDecks() {
+  if (!game.player1.hand[0]) {
+    deck1.classList.add('visibility-hidden');
+  };
+  if (!game.player2.hand[0]) {
+    deck2.classList.add('visibility-hidden');
+  };
+  if (game.player1.hand[0]) {
+    deck1.classList.remove('visibility-hidden');
+  };
+  if (game.player1.hand[0]) {
+    deck1.classList.remove('visibility-hidden');
+  };
 };
 
 function updateWins() {
-  player1Wins.innerText = `${game.player1.wins} Wins`;
-  player2Wins.innerText = `${game.player2.wins} Wins`;
+    player1Wins.innerText = `${game.player1.wins} Wins`;
+    player2Wins.innerText = `${game.player2.wins} Wins`;
 };
 
 function updateStackColor(id) {
@@ -60,6 +76,12 @@ function updateStackColor(id) {
   if (id === 2 && card) {
     card.classList.add('stack-1');
   };
+  if (!game.player1.hand[0] || !game.player2.hand[0]) {
+    suddenDeathStackColor(card);
+  };
+};
+
+function suddenDeathStackColor(card) {
   if (!game.player1.hand[0] && card) {
     card.classList.add('stack-2');
   };
@@ -84,5 +106,4 @@ function getPlayers() {
 
 function showInstructions() {
   instructions.classList.toggle('hidden');
-
 };
